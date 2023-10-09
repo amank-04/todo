@@ -58,9 +58,17 @@ export const useBoardStore = create<BoardState>((set, get) => ({
     set({ board: { columns: newColumns } });
 
     if (todo.image) {
-      const res: any = todo.image;
-      const data = JSON.parse(res);
-      await storage.deleteFile(data.bucketId, data.fileId);
+      let bucketId = todo.image.bucketId, fileId = todo.image.fileId;
+
+      if (typeof todo.image !== "object") {
+        const res: any = todo.image;
+        const data = JSON.parse(res);
+
+        bucketId = data.bucketId;
+        fileId = data.fileId;
+      }
+
+      await storage.deleteFile(bucketId, fileId);
     }
 
     await databases.deleteDocument(

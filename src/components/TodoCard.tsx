@@ -28,10 +28,17 @@ export default function TodoCard({
 
   useEffect(() => {
     if (todo.image) {
-      const res: any = todo.image;
-      const data = JSON.parse(res);
+      let bucketId = todo.image.bucketId, fileId = todo.image.fileId;
 
-      const url = getUrl(data.bucketId, data.fileId);
+      if (typeof todo.image !== "object") {
+        const res: any = todo.image;
+        const data = JSON.parse(res);
+
+        bucketId = data.bucketId;
+        fileId = data.fileId;
+      }
+
+      const url = getUrl(bucketId, fileId);
       if (url) setImageUrl(url.toString());
     }
   }, [todo]);

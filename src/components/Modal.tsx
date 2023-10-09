@@ -110,8 +110,8 @@ export default function Modal() {
                     hidden
                     ref={imagePickerRef}
                     onChange={(e) => {
-                      if (!e.target.files![0].type.startsWith("image/")) return;
-                      setImage(e.target.files![0]);
+                      if (!e.target.files![0]?.type.startsWith("image/")) return;
+                      setImage(e.target.files![0]); 
                     }}
                   />
                 </div>
