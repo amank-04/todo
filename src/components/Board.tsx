@@ -1,6 +1,6 @@
 "use client";
 import { useBoardStore } from "@/store/BoardStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 import Column from "./Column";
 
@@ -12,7 +12,12 @@ export default function Board() {
     store.updateTodoInDB,
   ]);
 
+  const [width, setWidth] = useState<"horizontal" | "vertical">("vertical");
+
   useEffect(() => {
+    const hasWindow = typeof window !== "undefined";
+    const width = hasWindow ? window.innerWidth : null;
+    if (width && width >= 768) setWidth("horizontal");
     getBoard();
   }, [getBoard]);
 
@@ -88,12 +93,7 @@ export default function Board() {
 
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
-      <Droppable
-        droppableId="board"
-        direction="horizontal"
-        // {window.innerWidth >= 768 ? "horizontal" : "vertical"}
-        type="column"
-      >
+      <Droppable droppableId="board" direction={width} type="column">
         {(provided) => (
           <div
             {...provided.droppableProps}
