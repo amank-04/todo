@@ -39,7 +39,7 @@ This personal project is a modern to-do app designed to explore advanced web dev
 1. Clone the repository:
    ```bash
    git clone https://github.com/amank-04/todo.git
-   cd todo-app
+   cd todo
    ```
 
 2. Install dependencies:
